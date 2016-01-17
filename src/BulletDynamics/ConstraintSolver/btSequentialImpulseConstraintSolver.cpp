@@ -366,7 +366,8 @@ void	btSequentialImpulseConstraintSolver::resolveSplitPenetrationImpulseCacheFri
  btSequentialImpulseConstraintSolver::btSequentialImpulseConstraintSolver()
 	 : m_resolveSingleConstraintRowGeneric(gResolveSingleConstraintRowGeneric_scalar_reference),
 	 m_resolveSingleConstraintRowLowerLimit(gResolveSingleConstraintRowLowerLimit_scalar_reference),
-	 m_btSeed2(0)
+	 m_btSeed2(0),
+	 m_iterationCallback(nullptr)
  {
 
 #ifdef USE_SIMD
@@ -418,6 +419,11 @@ void	btSequentialImpulseConstraintSolver::resolveSplitPenetrationImpulseCacheFri
  {
 	 return gResolveSingleConstraintRowLowerLimit_sse4_1_fma3;
  }
+
+void btSequentialImpulseConstraintSolver::SetIterationCallback(IterationCallback callback)
+{
+	m_iterationCallback = callback;
+}
 #endif //BT_ALLOW_SSE4
 #endif //USE_SIMD
 
@@ -1564,6 +1570,9 @@ btScalar btSequentialImpulseConstraintSolver::solveSingleIteration(int iteration
 			}
 		}
 	}
+
+	if (m_iterationCallback)
+		m_iterationCallback( );
 
 	if (infoGlobal.m_solverMode & SOLVER_SIMD)
 	{

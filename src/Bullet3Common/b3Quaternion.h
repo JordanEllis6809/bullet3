@@ -122,9 +122,9 @@ public:
 		b3Scalar cosRoll = b3Cos(halfRoll);
 		b3Scalar sinRoll = b3Sin(halfRoll);
 		setValue(cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw,
-			cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw,
-			sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw,
-			cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw);
+			     cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw,
+			     sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw,
+			     cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw);
 	}
   /**@brief Set the quaternion using euler angles 
    * @param yaw Angle around Z

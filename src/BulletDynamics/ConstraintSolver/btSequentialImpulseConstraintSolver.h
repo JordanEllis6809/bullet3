@@ -26,6 +26,7 @@ class btCollisionObject;
 #include "BulletDynamics/ConstraintSolver/btSolverConstraint.h"
 #include "BulletCollision/NarrowPhaseCollision/btManifoldPoint.h"
 #include "BulletDynamics/ConstraintSolver/btConstraintSolver.h"
+#include <functional>
 
 typedef btSimdScalar(*btSingleConstraintRowSolver)(btSolverBody&, btSolverBody&, const btSolverConstraint&);
 
@@ -98,7 +99,7 @@ protected:
 	btSimdScalar	resolveSingleConstraintRowGenericSIMD(btSolverBody& bodyA,btSolverBody& bodyB,const btSolverConstraint& contactConstraint);
 	btSimdScalar	resolveSingleConstraintRowLowerLimit(btSolverBody& bodyA,btSolverBody& bodyB,const btSolverConstraint& contactConstraint);
 	btSimdScalar	resolveSingleConstraintRowLowerLimitSIMD(btSolverBody& bodyA,btSolverBody& bodyB,const btSolverConstraint& contactConstraint);
-		
+	
 protected:
 	
 	
@@ -167,6 +168,13 @@ public:
 	btSingleConstraintRowSolver	getScalarConstraintRowSolverLowerLimit();
 	btSingleConstraintRowSolver	getSSE2ConstraintRowSolverLowerLimit();
 	btSingleConstraintRowSolver	getSSE4_1ConstraintRowSolverLowerLimit();
+	
+	typedef std::function<void(void)> IterationCallback;
+	void SetIterationCallback(IterationCallback callback);
+
+protected:
+	IterationCallback m_iterationCallback;
+
 };
 
 
